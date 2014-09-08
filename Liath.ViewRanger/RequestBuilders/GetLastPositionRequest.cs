@@ -58,7 +58,12 @@ namespace Liath.ViewRanger.RequestBuilders
     }
 }
 
-
+//<VIEWRANGER>
+//  <ERROR>
+//    <MESSAGE>Invalid API key</MESSAGE>
+//    <CODE>1</CODE>
+//  </ERROR>
+//</VIEWRANGER>
 
 //Error messages and codes
 //Code	Message

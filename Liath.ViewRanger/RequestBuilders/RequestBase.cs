@@ -30,6 +30,7 @@ namespace Liath.ViewRanger.RequestBuilders
             if (applicationKey == null) throw new ArgumentNullException("applicationKey");
 
             this.BaseAddress = @"http://api.viewranger.com/public/v1/";
+            this.Key = applicationKey;
         }
 
         public virtual XDocument MakeRequest(string service, string username, string pin)
@@ -63,7 +64,7 @@ namespace Liath.ViewRanger.RequestBuilders
 
         public virtual string CreateUrl(params RequestParameter[] parameters)
         {
-            return string.Concat(this.BaseAddress, "?", string.Join("&", parameters.Select(x => string.Join(x.Key, "=", x.Value)).ToArray()));
+            return string.Concat(this.BaseAddress, "?", string.Join("&", parameters.Select(x => string.Concat(x.Key, "=", x.Value)).ToArray()));
         }
 
         public virtual XDocument DownloadXml(string url)
@@ -136,7 +137,14 @@ namespace Liath.ViewRanger.RequestBuilders
             }
             else if(matches.Count() == 1)
             {
-                return innerFunction(matches.Single());
+                if (!string.IsNullOrWhiteSpace(matches.Single().Value))
+                {
+                    return innerFunction(matches.Single());
+                }
+                else
+                {
+                    return null;
+                }
             }
             else // > 1
             {

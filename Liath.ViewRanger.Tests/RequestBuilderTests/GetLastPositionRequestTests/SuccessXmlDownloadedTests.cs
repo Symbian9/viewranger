@@ -114,7 +114,53 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
         }
 
         #endregion
-        
+
+        #region Blank values
+
+        [Test]
+        public void Check_Latitude_is_null_when_blank()
+        {
+            var location = this.GetLocationFromBlankResponse("LATITUDE");
+            Assert.IsNull(location.Latitude);
+        }
+
+        [Test]
+        public void Check_Longitude_is_null_when_blank()
+        {
+            var location = this.GetLocationFromBlankResponse("LONGITUDE");
+            Assert.IsNull(location.Longitude);
+        }
+
+        [Test]
+        public void Check_Speed_is_null_when_blank()
+        {
+            var location = this.GetLocationFromBlankResponse("SPEED");
+            Assert.IsNull(location.Speed);
+        }
+
+        [Test]
+        public void Check_Altitude_is_null_when_blank()
+        {
+            var location = this.GetLocationFromBlankResponse("ALTITUDE");
+            Assert.IsNull(location.Altitude);
+        }
+
+        [Test]
+        public void Check_Heading_is_null_when_blank()
+        {
+            var location = this.GetLocationFromBlankResponse("HEADING");
+            Assert.IsNull(location.Heading);
+        }
+
+        [Test]
+        public void Check_Date_is_null_when_blank()
+        {
+            var location = this.GetLocationFromBlankResponse("DATE");
+            Assert.IsNull(location.Date);
+        }
+
+        #endregion
+
         [TestCase("LATITUDE")]
         [TestCase("LONGITUDE")]
         [TestCase("DATE")]
@@ -152,6 +198,16 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
             var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
             request.CallBase = true;
             request.Setup(x => x.MakeRequest(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(SampleResponse.Empty);
+            return request.Object.Request();
+        }
+
+        private Location GetLocationFromBlankResponse(string nodeName)
+        {
+            var xml = SampleResponse.Successful;
+            xml.Descendants(nodeName).Single().Value = string.Empty;
+            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
+            request.CallBase = true;
+            request.Setup(x => x.MakeRequest(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(xml);
             return request.Object.Request();
         }
     }
