@@ -32,7 +32,7 @@ namespace Liath.ViewRanger.RequestBuilders
             this.BaseAddress = @"http://api.viewranger.com/public/v1/";
         }
 
-        protected virtual XDocument MakeRequest(string service, string username, string pin)
+        public virtual XDocument MakeRequest(string service, string username, string pin)
         {
             var url = this.CreateUrl(new RequestParameter(KeyKey, Key),
                 new RequestParameter(ServiceKey, service),

@@ -52,10 +52,17 @@
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\ConstructorTests.cs" />
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\ForUserTests.cs" />
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\UrlValidationTests.cs" />
+    <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\SuccessXmlDownloadedTests.cs" />
     <Compile Include="ViewRangerClientTests\ConstructorTests.cs" />
     <Compile Include="ViewRangerClientTests\GetLastPositionTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\NoLocations.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\TwoLocations.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\Successful.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -71,6 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RequestBuilderTests\RequestBaseTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
