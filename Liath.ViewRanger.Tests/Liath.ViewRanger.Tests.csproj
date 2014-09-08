@@ -54,6 +54,7 @@
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\SampleResponse.cs" />
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\UrlValidationTests.cs" />
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\SuccessXmlDownloadedTests.cs" />
+    <Compile Include="RequestBuilderTests\RequestBaseTests\CreateUrlTests.cs" />
     <Compile Include="RequestBuilderTests\RequestBaseTests\MakeRequestTests.cs" />
     <Compile Include="ViewRangerClientTests\ConstructorTests.cs" />
     <Compile Include="ViewRangerClientTests\GetLastPositionTests.cs" />

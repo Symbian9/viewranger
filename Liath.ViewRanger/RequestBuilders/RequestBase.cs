@@ -15,7 +15,7 @@ namespace Liath.ViewRanger.RequestBuilders
         private static ILog s_log = LogManager.GetLogger(typeof(RequestBase));
 
         protected const string RequestFormat = "xml";
-        protected string BaseAddress { get; set; }
+        public virtual string BaseAddress { get; set; }
         protected string Key { get; set; }
 
         // Keys
