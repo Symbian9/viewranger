@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Liath.ViewRanger.RequestBuilders
 {
-    public interface IGetLastPositionRequest : IRequest<Position>
+    public interface IGetLastPositionRequest : IRequest<Location>
     {
-        IGetLastPositionRequest ForUser(string username);        
+        IGetLastPositionRequest ForUser(string username, string pin);
     }
 }

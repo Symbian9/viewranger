@@ -20,7 +20,7 @@ namespace Liath.ViewRanger
 
         public IGetLastPositionRequest GetLastPosition()
         {
-            return new GetLastPositionRequest();
+            return new GetLastPositionRequest(_applicationKey);
         }
     }
 }

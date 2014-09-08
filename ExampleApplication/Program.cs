@@ -13,9 +13,10 @@ namespace ExampleApplication
         {
             var appKey = @"123456789";
             var username = "user1";
+            var pin = "1234";
             var client = new ViewRangerClient(appKey);
             var position = client.GetLastPosition()
-                .ForUser(username)
+                .ForUser(username, pin)
                 .Request();
         }
     }
