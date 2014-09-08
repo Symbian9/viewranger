@@ -11,9 +11,9 @@ namespace Liath.ViewRanger.RequestBuilders
 {
     public class GetLastPositionRequest : RequestBase, IGetLastPositionRequest
     {
-        protected const string Service = "getLastBBPosition";
-        protected string Username { get; set; }
-        protected string Pin { get; set; }
+        public const string Service = "getLastBBPosition";
+        public string Username { get; set; }
+        public string Pin { get; set; }
 
         public GetLastPositionRequest(string key)
             : base(key)
@@ -22,6 +22,9 @@ namespace Liath.ViewRanger.RequestBuilders
 
         public IGetLastPositionRequest ForUser(string username, string pin)
         {
+            if (username == null) throw new ArgumentNullException("username");
+            if (pin == null) throw new ArgumentNullException("pin");
+
             this.Username = username;
             this.Pin = pin;
             return this;

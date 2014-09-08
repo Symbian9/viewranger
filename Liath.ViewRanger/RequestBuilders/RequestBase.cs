@@ -25,8 +25,10 @@ namespace Liath.ViewRanger.RequestBuilders
         private const string PinKey = "pin";
         private const string FormatKey = "format";
 
-        protected RequestBase(string key)
+        protected RequestBase(string applicationKey)
         {
+            if (applicationKey == null) throw new ArgumentNullException("applicationKey");
+
             this.BaseAddress = @"http://api.viewranger.com/public/v1/";
         }
 
