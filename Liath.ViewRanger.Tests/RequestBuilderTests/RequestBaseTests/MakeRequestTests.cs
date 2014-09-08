@@ -1,4 +1,5 @@
 ﻿using Liath.ViewRanger.RequestBuilders;
+using Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests.RequestTests.SampleResponses;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -17,7 +18,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.RequestBaseTests
         public void Ensure_MakeRequest_downloads_xml()
         {
             var urlToCall = Guid.NewGuid().ToString();
-            var xml = GetXDocument();
+            var xml = SampleResponse.Successful;
             var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
             request.CallBase = true;
             request.Setup(x => x.CreateUrl(It.IsAny<RequestParameter[]>())).Returns(urlToCall);
@@ -26,11 +27,6 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.RequestBaseTests
             request.Object.ForUser(Guid.NewGuid().ToString(), Guid.NewGuid().ToString()).Request();
 
             request.Verify(x => x.DownloadXml(urlToCall), Times.Once());
-        }
-
-        private XDocument GetXDocument()
-        {
-            return XDocument.Load(@"RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\Successful.xml");
-        }
+        }        
     }
 }

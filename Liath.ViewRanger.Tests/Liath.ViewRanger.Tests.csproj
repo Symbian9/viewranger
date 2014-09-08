@@ -51,6 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\ConstructorTests.cs" />
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\ForUserTests.cs" />
+    <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\SampleResponse.cs" />
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\UrlValidationTests.cs" />
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\SuccessXmlDownloadedTests.cs" />
     <Compile Include="RequestBuilderTests\RequestBaseTests\MakeRequestTests.cs" />

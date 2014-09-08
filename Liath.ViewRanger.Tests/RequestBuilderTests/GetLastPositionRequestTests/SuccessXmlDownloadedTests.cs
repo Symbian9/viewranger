@@ -1,6 +1,7 @@
 ﻿using Liath.ViewRanger.Exceptions;
 using Liath.ViewRanger.RequestBuilders;
 using Liath.ViewRanger.Responses;
+using Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests.RequestTests.SampleResponses;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -22,9 +23,10 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
         [TestCase("TwoLocations.xml")]
         public void Throws_when_invalid_number_of_locations(string filename)
         {
+            var xml = SampleResponse.GetXDocument(filename);
             var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
             request.CallBase = true;
-            request.Setup(x => x.MakeRequest(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(this.GetXDocument(filename));
+            request.Setup(x => x.MakeRequest(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(xml);
             Assert.Throws<UnexpectedResponseException>(() => request.Object.Request());
         }
 
@@ -131,13 +133,13 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
         {
             var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
             request.CallBase = true;
-            request.Setup(x => x.MakeRequest(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(this.GetXDocument("Successful.xml"));
+            request.Setup(x => x.MakeRequest(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(SampleResponse.Successful);
             return request.Object.Request();
         }
 
         private Location GetLocationFromInvalidResponse(string nodeName)
         {
-            var xml = this.GetXDocument("Successful.xml");
+            var xml = SampleResponse.Successful;
             xml.Descendants(nodeName).Single().Value = Guid.NewGuid().ToString();
             var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
             request.CallBase = true;
@@ -149,13 +151,8 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
         {
             var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
             request.CallBase = true;
-            request.Setup(x => x.MakeRequest(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(this.GetXDocument("Empty.xml"));
+            request.Setup(x => x.MakeRequest(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(SampleResponse.Empty);
             return request.Object.Request();
-        }
-
-        private XDocument GetXDocument(string name)
-        {
-            return XDocument.Load(string.Concat(@"RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\", name));
         }
     }
 }
