@@ -19,11 +19,11 @@ namespace Liath.ViewRanger.RequestBuilders
         protected string Key { get; set; }
 
         // Keys
-        private const string KeyKey = "key";
-        private const string ServiceKey = "service";
-        private const string UsernameKey = "username";
-        private const string PinKey = "pin";
-        private const string FormatKey = "format";
+        public const string KeyKey = "key";
+        public const string ServiceKey = "service";
+        public const string UsernameKey = "username";
+        public const string PinKey = "pin";
+        public const string FormatKey = "format";
 
         protected RequestBase(string applicationKey)
         {
@@ -44,7 +44,7 @@ namespace Liath.ViewRanger.RequestBuilders
             return document;
 
             // See http://www.viewranger.com/developers/documentation/
-            // Here's a sample url - http://api.viewranger.com/public/v1/?key={API-KEY}&service=getLastBBPosition&username={BB-USERNAME}&pin={BB-PIN}&format={FORMAT}#sthash.wi7BbDza.dpuf
+            // Here's a sample url - http://api.viewranger.com/public/v1/?key={API-KEY}&service=getLastBBPosition&username={BB-USERNAME}&pin={BB-PIN}&format={FORMAT}
 
             // example response
             //<?xml version="1.0" encoding="UTF-8"?>
@@ -61,7 +61,7 @@ namespace Liath.ViewRanger.RequestBuilders
             //    See more at: http://www.viewranger.com/developers/documentation/#sthash.wi7BbDza.dpuf
         }
 
-        private string CreateUrl(params RequestParameter[] parameters)
+        public virtual string CreateUrl(params RequestParameter[] parameters)
         {
             return string.Concat(this.BaseAddress, "?", string.Join("&", parameters.Select(x => string.Join(x.Key, "=", x.Value)).ToArray()));
         }
