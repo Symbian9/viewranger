@@ -25,8 +25,6 @@ namespace Liath.ViewRanger.RequestBuilders
             get { return "getBBPositions"; }
         }
 
-
-
         public Track Request()
         {
             throw new NotImplementedException();
