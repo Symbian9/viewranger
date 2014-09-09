@@ -16,6 +16,6 @@
     <tags>viewranger api</tags>
   </metadata>
   <files>
-	<file src="Liath.ViewRanger\bin\bin\$configuration$\Liath.ViewRanger.dll" target="lib\net40\" />
+	<file src="Liath.ViewRanger\bin\$configuration$\Liath.ViewRanger.dll" target="lib\net40\" />
   </files>
 </package>
