@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>ViewRanger.BuddyBeacon.API</id>
+        <version>$version$</version>
+        <title>ViewRanger BuddyBeacon API Client for .NET</title>
+        <authors>Adam Griffiths</authors>
+        <owners>Adam Griffiths</owners>
+        <licenseUrl>https://github.com/ardliath/viewranger/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/ardliath/viewranger</projectUrl>
+        <iconUrl>http://www.viewranger.com/plugins/themes/vr2/img/viewranger-logo.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>The ViewRanger BuddyBeacon API Client allows quick and easy access to the BuddyBeacon system.</description>
+        <releaseNotes />
+        <tags>viewranger api</tags>
+        <dependencies>
+            <dependency id="log4net" version="2.0.3" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="Liath.ViewRanger\bin\$configuration$\Liath.ViewRanger.dll" target="lib\net40\Liath.ViewRanger.dll" />
+    </files>
+</package>
