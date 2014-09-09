@@ -17,6 +17,14 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
             }
         }
 
+        public static XDocument Error
+        {
+            get
+            {
+                return GetXDocument("Error.xml");
+            }
+        }
+
         public static XDocument NoLocations
         {
             get

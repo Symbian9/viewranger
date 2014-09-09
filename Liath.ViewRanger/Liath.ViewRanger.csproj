@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\FailedRequestException.cs" />
     <Compile Include="Exceptions\UnexpectedResponseException.cs" />
     <Compile Include="Exceptions\ViewRangerException.cs" />
     <Compile Include="IViewRangerClient.cs" />

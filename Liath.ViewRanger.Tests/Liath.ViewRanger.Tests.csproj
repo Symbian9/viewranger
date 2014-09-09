@@ -60,6 +60,9 @@
     <Compile Include="ViewRangerClientTests\GetLastPositionTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\Error.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\NoLocations.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
