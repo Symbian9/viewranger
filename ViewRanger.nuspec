@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>ViewRanger.API</id>
-        <version>0.1.0</version>
+        <version>$version$</version>
         <title>ViewRanger BuddyBeacon API Client</title>
         <authors>Adam Griffiths</authors>
         <owners>Adam Griffiths</owners>
@@ -19,6 +19,6 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="Liath.ViewRanger\bin\Release\Liath.ViewRanger.dll" target="lib\net40\Liath.ViewRanger.dll" />
+        <file src="Liath.ViewRanger\bin\$configuration$\Liath.ViewRanger.dll" target="lib\net40\Liath.ViewRanger.dll" />
     </files>
 </package>
