@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Liath.ViewRanger.RequestBuilders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,9 @@ namespace Liath.ViewRanger
     /// </summary>
     public interface IViewRangerClient
     {
+        /// <summary>
+        /// Creates a new request to get the user's last known position
+        /// </summary>
+        IGetLastPositionRequest GetLastPosition();
     }
 }

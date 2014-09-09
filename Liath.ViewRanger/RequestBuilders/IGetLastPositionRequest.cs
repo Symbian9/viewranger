@@ -9,6 +9,9 @@ namespace Liath.ViewRanger.RequestBuilders
 {
     public interface IGetLastPositionRequest : IRequest<Location>
     {
+        /// <summary>
+        /// Specifies the credentials for the user being queried
+        /// </summary>
         IGetLastPositionRequest ForUser(string username, string pin);
     }
 }

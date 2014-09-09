@@ -7,6 +7,9 @@ namespace Liath.ViewRanger.RequestBuilders
 {
     public interface IRequest<TRequest>
     {
+        /// <summary>
+        /// Makes the ViewRanger request
+        /// </summary>
         TRequest Request();
     }
 }

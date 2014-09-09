@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Liath.ViewRanger.Exceptions
 {
+    /// <summary>
+    /// The Exception thrown when we recieve data we cannot parse
+    /// </summary>
     public class UnexpectedResponseException : ViewRangerException
     {
         public UnexpectedResponseException(string message)

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Liath.ViewRanger.Exceptions
 {
+    /// <summary>
+    /// The Exception thrown when ViewRanger returns an error to our requests
+    /// </summary>
     public class FailedRequestException : ViewRangerException
     {
         /// <summary>

@@ -9,17 +9,38 @@ using System.Xml.Linq;
 
 namespace Liath.ViewRanger.RequestBuilders
 {
+    /// <summary>
+    /// The request object which gets the user's last position
+    /// </summary>
     public class GetLastPositionRequest : RequestBase, IGetLastPositionRequest
     {
+        /// <summary>
+        /// The name of the function which we call on the ViewRanger service
+        /// </summary>
         public const string Service = "getLastBBPosition";
+
+        /// <summary>
+        /// The user's username
+        /// </summary>
         public string Username { get; set; }
+
+        /// <summary>
+        /// The user's PIN
+        /// </summary>
         public string Pin { get; set; }
 
+        /// <summary>
+        /// Creates a new request based using the ApplicationKey
+        /// </summary>
+        /// <param name="key">The ApplicationKey used to call ViewRanger</param>
         public GetLastPositionRequest(string key)
             : base(key)
         {
         }
 
+        /// <summary>
+        /// Specifies the uer being queried
+        /// </summary>
         public IGetLastPositionRequest ForUser(string username, string pin)
         {
             if (username == null) throw new ArgumentNullException("username");
@@ -30,6 +51,10 @@ namespace Liath.ViewRanger.RequestBuilders
             return this;
         }
 
+        /// <summary>
+        /// Makes the request from ViewRanger
+        /// </summary>
+        /// <returns>The user's last location</returns>
         public Location Request()
         {
             var xml = this.MakeRequest(Service, this.Username, this.Pin);

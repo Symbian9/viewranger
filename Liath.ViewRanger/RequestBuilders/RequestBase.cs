@@ -10,12 +10,29 @@ using System.Xml.Linq;
 
 namespace Liath.ViewRanger.RequestBuilders
 {
+    /// <summary>
+    /// The BaseClass for all ViewRanger requests
+    /// </summary>
     public abstract class RequestBase
     {
+        /// <summary>
+        /// Our logger
+        /// </summary>
         private static ILog s_log = LogManager.GetLogger(typeof(RequestBase));
 
+        /// <summary>
+        /// The format to download responses in
+        /// </summary>
         protected const string RequestFormat = "xml";
+
+        /// <summary>
+        /// The BaseAddress of the ViewRanger API
+        /// </summary>
         public virtual string BaseAddress { get; set; }
+
+        /// <summary>
+        /// The ApplicationKey to use when calling the ViewRanger API
+        /// </summary>
         protected string Key { get; set; }
 
         // Keys
@@ -25,6 +42,9 @@ namespace Liath.ViewRanger.RequestBuilders
         public const string PinKey = "pin";
         public const string FormatKey = "format";
 
+        /// <summary>
+        /// Creates a new request
+        /// </summary>
         protected RequestBase(string applicationKey)
         {
             if (applicationKey == null) throw new ArgumentNullException("applicationKey");
@@ -33,6 +53,13 @@ namespace Liath.ViewRanger.RequestBuilders
             this.Key = applicationKey;
         }
 
+        /// <summary>
+        /// Makes the request to the ViewRanger API, checks for errors and returns the returned xml
+        /// </summary>
+        /// <param name="service">The service we're calling</param>
+        /// <param name="username">The username to query</param>
+        /// <param name="pin">The PIN for the BuddyBeacon account</param>
+        /// <returns></returns>
         public virtual XDocument MakeRequest(string service, string username, string pin)
         {
             var url = this.CreateUrl(new RequestParameter(KeyKey, Key),
@@ -63,6 +90,10 @@ namespace Liath.ViewRanger.RequestBuilders
             //    See more at: http://www.viewranger.com/developers/documentation/#sthash.wi7BbDza.dpuf
         }
 
+        /// <summary>
+        /// Checks if the XML contains an error element and throws appropriate exceptions
+        /// </summary>
+        /// <param name="document">The XML document returned from ViewRanger</param>
         private void HandleErrors(XDocument document)
         {          
             var errorElements = document.Descendants("ERROR");
@@ -75,7 +106,12 @@ namespace Liath.ViewRanger.RequestBuilders
             }                   
         }
 
-        private Exception CreateExceptionFromError(XElement errorElement)
+        /// <summary>
+        /// Parses an error element and creates an exception
+        /// </summary>
+        /// <param name="errorElement">The XML element containing the errors</param>
+        /// <returns>The exception to throw</returns>
+        private ViewRangerException CreateExceptionFromError(XElement errorElement)
         {
             //<VIEWRANGER>
             //  <ERROR>
@@ -139,16 +175,32 @@ namespace Liath.ViewRanger.RequestBuilders
             //- See more at: http://www.viewranger.com/developers/documentation/#sthash.wi7BbDza.meHteX6u.dpuf     
         }
 
+        /// <summary>
+        /// Creates the URL to call from the BaseAddress and supplied parameters
+        /// </summary>
+        /// <param name="parameters">The parameters to add to the QueryString</param>
+        /// <returns>The Request URL</returns>
         public virtual string CreateUrl(params RequestParameter[] parameters)
         {
             return string.Concat(this.BaseAddress, "?", string.Join("&", parameters.Select(x => string.Concat(x.Key, "=", x.Value)).ToArray()));
         }
 
+        /// <summary>
+        /// Downloads XML from the given URL
+        /// </summary>
+        /// <remarks>This method is a public virtual to allow for easy mocking</remarks>
+        /// <param name="url">The URL to download from</param>
+        /// <returns>The XML downloaded</returns>
         public virtual XDocument DownloadXml(string url)
         {
             return XDocument.Load(url);
         }
 
+        /// <summary>
+        /// Parses a LocationElement and returns a Location object
+        /// </summary>
+        /// <param name="locationElement">The XML representing the Location</param>
+        /// <returns>A populated Location object</returns>
         public Location CreateLocationFromXml(XElement locationElement)
         {            
             //        <LOCATION>
@@ -171,6 +223,13 @@ namespace Liath.ViewRanger.RequestBuilders
             };
         }
 
+        /// <summary>
+        /// Checks the element for a child identified by the key, attempts to parse it and returns the result
+        /// </summary>
+        /// <param name="element">The Location XML Element</param>
+        /// <param name="key">The child element name to search for</param>
+        /// <returns>The decimal or Null if the element was not present</returns>
+        /// <remarks>Will throw an UnexpectedResponseException if the value cannot be parsed or more than one matching child is found</remarks>
         private decimal? GetDecimalValue(XElement element, string key)
         {            
             return this.GetValue<decimal>(element, key, singleMatch =>
@@ -188,6 +247,13 @@ namespace Liath.ViewRanger.RequestBuilders
                 });
         }
 
+        /// <summary>
+        /// Checks the element for a child identified by the key, attempts to parse it and returns the result
+        /// </summary>
+        /// <param name="element">The Location XML Element</param>
+        /// <param name="key">The child element name to search for</param>
+        /// <returns>The DateTime or Null if the element was not present</returns>
+        /// <remarks>Will throw an UnexpectedResponseException if the value cannot be parsed or more than one matching child is found</remarks>
         private DateTime? GetDateTimeValue(XElement element, string key)
         {
             return this.GetValue<DateTime>(element, key, singleMatch =>
@@ -205,6 +271,10 @@ namespace Liath.ViewRanger.RequestBuilders
             });
         }
 
+        /// <summary>
+        /// A generic GetXValue method, allows you to pass in manual parsing code
+        /// </summary>
+        /// <typeparam name="T">The type to parse too</typeparam>
         private T? GetValue<T>(XElement element,  string key, Func<XElement, T> innerFunction) where T : struct
         {
             var matches = element.Descendants(key);
