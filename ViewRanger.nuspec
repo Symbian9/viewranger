@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ViewRanger.API</id>
+    <version>$version$</version>
+    <title>ViewRanger BuddyBeacon API Client</title>
+    <authors>Adam Griffiths</authors>
+    <owners>AdamGriffiths</owners>
+    <licenseUrl>https://github.com/ardliath/viewranger/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/ardliath/viewranger</projectUrl>
+    <iconUrl>http://www.viewranger.com/plugins/themes/vr2/img/viewranger-logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The ViewRanger BuddyBeacon API Client allows quick and easy access to the BuddyBeacon system.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright &#x00A9; Microsoft Corporation.  All rights reserved.</copyright>
+    <tags>viewranger api</tags>
+  </metadata>
+  <files>
+	<file src="Liath.ViewRanger\bin\bin\$configuration$\Liath.ViewRanger.dll" target="lib\net40\" />
+  </files>
+</package>
