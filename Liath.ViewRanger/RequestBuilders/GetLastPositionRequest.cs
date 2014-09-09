@@ -17,17 +17,14 @@ namespace Liath.ViewRanger.RequestBuilders
         /// <summary>
         /// The name of the function which we call on the ViewRanger service
         /// </summary>
-        public const string Service = "getLastBBPosition";
-
-        /// <summary>
-        /// The user's username
-        /// </summary>
-        public string Username { get; set; }
-
-        /// <summary>
-        /// The user's PIN
-        /// </summary>
-        public string Pin { get; set; }
+        /// 
+        public override string Service
+        {
+            get
+            {
+                return "getLastBBPosition";
+            }
+        }
 
         /// <summary>
         /// Creates a new request based using the ApplicationKey
@@ -57,7 +54,7 @@ namespace Liath.ViewRanger.RequestBuilders
         /// <returns>The user's last location</returns>
         public Location Request()
         {
-            var xml = this.MakeRequest(Service, this.Username, this.Pin);
+            var xml = this.MakeRequest();
             var locationElements = xml.Descendants("LOCATION");
             if(locationElements.Count() == 1)
             {

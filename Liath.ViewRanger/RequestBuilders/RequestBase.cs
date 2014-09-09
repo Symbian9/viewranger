@@ -31,9 +31,24 @@ namespace Liath.ViewRanger.RequestBuilders
         public virtual string BaseAddress { get; set; }
 
         /// <summary>
+        /// The service to call
+        /// </summary>
+        public abstract string Service { get; }
+
+        /// <summary>
         /// The ApplicationKey to use when calling the ViewRanger API
         /// </summary>
         protected string Key { get; set; }
+
+        /// <summary>
+        /// The user's username
+        /// </summary>
+        public string Username { get; set; }
+
+        /// <summary>
+        /// The user's PIN
+        /// </summary>
+        public string Pin { get; set; }
 
         // Keys
         public const string KeyKey = "key";
@@ -56,19 +71,26 @@ namespace Liath.ViewRanger.RequestBuilders
         /// <summary>
         /// Makes the request to the ViewRanger API, checks for errors and returns the returned xml
         /// </summary>
-        /// <param name="service">The service we're calling</param>
-        /// <param name="username">The username to query</param>
-        /// <param name="pin">The PIN for the BuddyBeacon account</param>
-        /// <returns></returns>
-        public virtual XDocument MakeRequest(string service, string username, string pin)
+        /// <returns>The XML returned</returns>
+        public virtual XDocument MakeRequest()
         {
+            if(this.Username == null || this.Pin == null)
+            {
+                s_log.Error("Could not complete request because either the username or PIN were null");
+                throw new UserNotSpecifiedException();
+            }
+
             var url = this.CreateUrl(new RequestParameter(KeyKey, Key),
-                new RequestParameter(ServiceKey, service),
-                new RequestParameter(UsernameKey, username),
-                new RequestParameter(PinKey, pin),
+                new RequestParameter(ServiceKey, this.Service),
+                new RequestParameter(UsernameKey, this.Username),
+                new RequestParameter(PinKey, this.Pin),
                 new RequestParameter(FormatKey, RequestFormat));
 
+            s_log.DebugFormat("Attempting to download data from '{0}'", url);
+
             var document = this.DownloadXml(url);
+            s_log.Debug("XML response downloaded");
+
             this.HandleErrors(document);
             return document;
 
@@ -95,7 +117,8 @@ namespace Liath.ViewRanger.RequestBuilders
         /// </summary>
         /// <param name="document">The XML document returned from ViewRanger</param>
         private void HandleErrors(XDocument document)
-        {          
+        {
+            s_log.Debug("Checking XML response for errors");
             var errorElements = document.Descendants("ERROR");
             if(errorElements.Count() > 0)
             {
@@ -103,7 +126,8 @@ namespace Liath.ViewRanger.RequestBuilders
                 var firstErrorElement = errorElements.First();
                 var ex = this.CreateExceptionFromError(firstErrorElement);
                 throw ex;
-            }                   
+            }
+            s_log.Debug("XML response contained no errors");
         }
 
         /// <summary>

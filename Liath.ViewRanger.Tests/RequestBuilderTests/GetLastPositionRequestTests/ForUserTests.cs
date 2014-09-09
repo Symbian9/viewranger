@@ -1,4 +1,5 @@
-﻿using Liath.ViewRanger.RequestBuilders;
+﻿using Liath.ViewRanger.Exceptions;
+using Liath.ViewRanger.RequestBuilders;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,16 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
                 request.ForUser(Guid.NewGuid().ToString(), null);
             });
             Assert.AreEqual("pin", ex.ParamName);
+        }
+
+        [Test]
+        public void Throws_when_request_is_made_without_user()
+        {
+            var request = new GetLastPositionRequest(Guid.NewGuid().ToString());
+            var ex = Assert.Throws<UserNotSpecifiedException>(() =>
+            {
+                request.Request();
+            });
         }
 
         [Test]

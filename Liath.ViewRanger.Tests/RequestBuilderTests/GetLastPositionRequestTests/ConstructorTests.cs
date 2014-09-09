@@ -27,7 +27,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
         [Test]
         public void Check_service_is_correct()
         {
-            Assert.AreEqual("getLastBBPosition", GetLastPositionRequest.Service);
+            Assert.AreEqual("getLastBBPosition", new GetLastPositionRequest(Guid.NewGuid().ToString()).Service);
         }
     }
 }

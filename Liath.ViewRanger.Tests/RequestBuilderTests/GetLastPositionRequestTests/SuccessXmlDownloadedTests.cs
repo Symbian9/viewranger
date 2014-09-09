@@ -26,7 +26,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
             var xml = SampleResponse.GetXDocument(filename);
             var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
             request.CallBase = true;
-            request.Setup(x => x.MakeRequest(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(xml);
+            request.Setup(x => x.MakeRequest()).Returns(xml);
             Assert.Throws<UnexpectedResponseException>(() => request.Object.Request());
         }
 
@@ -179,7 +179,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
         {
             var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
             request.CallBase = true;
-            request.Setup(x => x.MakeRequest(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(SampleResponse.Successful);
+            request.Setup(x => x.MakeRequest()).Returns(SampleResponse.Successful);
             return request.Object.Request();
         }
 
@@ -189,7 +189,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
             xml.Descendants(nodeName).Single().Value = Guid.NewGuid().ToString();
             var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
             request.CallBase = true;
-            request.Setup(x => x.MakeRequest(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(xml);
+            request.Setup(x => x.MakeRequest()).Returns(xml);
             return request.Object.Request();
         }
 
@@ -197,7 +197,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
         {
             var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
             request.CallBase = true;
-            request.Setup(x => x.MakeRequest(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(SampleResponse.Empty);
+            request.Setup(x => x.MakeRequest()).Returns(SampleResponse.Empty);
             return request.Object.Request();
         }
 
@@ -207,7 +207,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
             xml.Descendants(nodeName).Single().Value = string.Empty;
             var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
             request.CallBase = true;
-            request.Setup(x => x.MakeRequest(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(xml);
+            request.Setup(x => x.MakeRequest()).Returns(xml);
             return request.Object.Request();
         }
     }
