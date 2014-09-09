@@ -57,6 +57,9 @@
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\ConstructorTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\DatesAndLimitsTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\ForUserTests.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\SampleResponse.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SuccessfullyDownloadedXmlTests.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\UrlValidationTests.cs" />
     <Compile Include="RequestBuilderTests\RequestBaseTests\CreateUrlTests.cs" />
     <Compile Include="RequestBuilderTests\RequestBaseTests\MakeRequestTests.cs" />
     <Compile Include="ViewRangerClientTests\ConstructorTests.cs" />
@@ -77,6 +80,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\Successful.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\Successful.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

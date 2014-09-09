@@ -8,5 +8,6 @@ namespace Liath.ViewRanger.Responses
 {
     public class Track
     {
+        public IEnumerable<Location> Locations { get; set; }
     }
 }

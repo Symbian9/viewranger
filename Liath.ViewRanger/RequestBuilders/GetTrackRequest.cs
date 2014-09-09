@@ -9,15 +9,21 @@ namespace Liath.ViewRanger.RequestBuilders
 {
     public class GetTrackRequest : RequestBase, IGetTrackRequest
     {
+        public const string DateTimeFormatString = "yyyy-MM-dd HH:mm:ss";
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public int LimitValue { get; set; }
+
+        public const string FromKey = "date_from";
+        public const string ToKey = "date_until";
+        public const string LimitKey = "limit";
 
         public GetTrackRequest(string apiKey)
             : base(apiKey)
         {
             this.FromDate = DateTime.MinValue;
             this.ToDate = DateTime.MaxValue;
+            this.LimitValue = 50;
         }
 
         public override string Service
@@ -27,8 +33,12 @@ namespace Liath.ViewRanger.RequestBuilders
 
         public Track Request()
         {
-            throw new NotImplementedException();
-        }        
+            var xml = this.MakeRequest(new RequestParameter(FromKey, this.FromDate.ToString(DateTimeFormatString)),
+                new RequestParameter(ToKey, this.ToDate.ToString(DateTimeFormatString)),
+                new RequestParameter(LimitKey, this.LimitValue.ToString()));
+
+            return new Track();
+        }
 
 
         //http://api.viewranger.com/public/v1/?key={API-KEY}&service=getBBPositions&username={BB-USERNAME}&pin={BB-PIN}&date_from={DATE-FROM}&date_until={DATE-UNTIL}&limit={LIMIT}&format={FORMAT}#sthash.kKhQV9EG.dpuf
