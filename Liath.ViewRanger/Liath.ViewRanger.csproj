@@ -50,11 +50,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="RequestBuilders\GetLastPositionRequest.cs" />
+    <Compile Include="RequestBuilders\GetTrackRequest.cs" />
     <Compile Include="RequestBuilders\IGetLastPositionRequest.cs" />
+    <Compile Include="RequestBuilders\IGetTrackRequest.cs" />
     <Compile Include="RequestBuilders\IRequest.cs" />
     <Compile Include="RequestBuilders\RequestBase.cs" />
     <Compile Include="RequestBuilders\RequestParameter.cs" />
     <Compile Include="Responses\Location.cs" />
+    <Compile Include="Responses\Track.cs" />
     <Compile Include="ViewRangerClient.cs" />
   </ItemGroup>
   <ItemGroup>
