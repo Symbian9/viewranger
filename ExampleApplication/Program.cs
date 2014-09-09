@@ -15,7 +15,7 @@ namespace ExampleApplication
             var username = "user1";
             var pin = "1234";
             var client = new ViewRangerClient(appKey);
-            var position = client.GetLastPosition()
+            var lastLocation = client.GetLastPosition()
                 .ForUser(username, pin)
                 .Request();
         }
