@@ -54,16 +54,29 @@
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\SampleResponse.cs" />
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\UrlValidationTests.cs" />
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\SuccessXmlDownloadedTests.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\ConstructorTests.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\DatesAndLimitsTests.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\ForUserTests.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\SampleResponse.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SuccessfullyDownloadedXmlTests.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\UrlValidationTests.cs" />
     <Compile Include="RequestBuilderTests\RequestBaseTests\CreateUrlTests.cs" />
     <Compile Include="RequestBuilderTests\RequestBaseTests\MakeRequestTests.cs" />
     <Compile Include="ViewRangerClientTests\ConstructorTests.cs" />
     <Compile Include="ViewRangerClientTests\GetLastPositionTests.cs" />
+    <Compile Include="ViewRangerClientTests\GetTrackTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\Error.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\NoLocations.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\Empty.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\NoLocations.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\Empty.xml">
@@ -73,6 +86,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\Successful.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\Successful.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

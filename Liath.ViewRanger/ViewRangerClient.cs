@@ -22,5 +22,11 @@ namespace Liath.ViewRanger
         {
             return new GetLastPositionRequest(_applicationKey);
         }
+
+
+        public IGetTrackRequest GetTrack()
+        {
+            return new GetTrackRequest(_applicationKey);
+        }
     }
 }

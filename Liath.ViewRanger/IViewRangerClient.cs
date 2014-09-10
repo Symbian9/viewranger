@@ -15,5 +15,10 @@ namespace Liath.ViewRanger
         /// Creates a new request to get the user's last known position
         /// </summary>
         IGetLastPositionRequest GetLastPosition();
+
+        /// <summary>
+        /// Creates a new request to download a track
+        /// </summary>
+        IGetTrackRequest GetTrack();
     }
 }

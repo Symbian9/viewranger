@@ -72,7 +72,7 @@ namespace Liath.ViewRanger.RequestBuilders
         /// Makes the request to the ViewRanger API, checks for errors and returns the returned xml
         /// </summary>
         /// <returns>The XML returned</returns>
-        public virtual XDocument MakeRequest()
+        public virtual XDocument MakeRequest(params RequestParameter[] parameters)
         {
             if(this.Username == null || this.Pin == null)
             {
@@ -80,11 +80,16 @@ namespace Liath.ViewRanger.RequestBuilders
                 throw new UserNotSpecifiedException();
             }
 
-            var url = this.CreateUrl(new RequestParameter(KeyKey, Key),
+            var allParameters = new RequestParameter[]
+            {
+                new RequestParameter(KeyKey, Key),
                 new RequestParameter(ServiceKey, this.Service),
                 new RequestParameter(UsernameKey, this.Username),
                 new RequestParameter(PinKey, this.Pin),
-                new RequestParameter(FormatKey, RequestFormat));
+                new RequestParameter(FormatKey, RequestFormat)
+            }.Union(parameters).ToArray();
+
+            var url = this.CreateUrl(allParameters);
 
             s_log.DebugFormat("Attempting to download data from '{0}'", url);
 

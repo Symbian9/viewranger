@@ -9,7 +9,7 @@ namespace Liath.ViewRanger.Responses
     /// <summary>
     /// Represents a location returned by ViewRanger
     /// </summary>
-    public class Location
+    public partial class Location
     {
         /// <summary>
         /// The user's latitude
