@@ -13,14 +13,7 @@ var pin = "1234";
 var client = new ViewRangerClient(appKey);
 var lastLocation = client.GetLastPosition()
     .ForUser(username, pin)
-    .Request();
-	
-
-
-var track = client.GetTrack()
-	.ForUser(username, pin)
-    .From(DateTime.Now.AddHours(-5))
-    .To(DateTime.Now)
-    .Limit(50)
     .Request();	
 ```
+
+To find out more view the [wiki](https://github.com/ardliath/viewranger) or download the [NuGet Package](nuget.org/packages/ViewRanger.BuddyBeacon.API).
