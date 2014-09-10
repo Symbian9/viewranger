@@ -3,12 +3,7 @@ set config=%1
 if "%config%" == "" (
    set config=Release
 )
- 
-set version=1.0.0
-if not "%PackageVersion%" == "" (
-   set version=%PackageVersion%
-)
- 
+
 set nuget=
 if "%nuget%" == "" (
 	set nuget=nuget
@@ -29,6 +24,6 @@ mkdir Build\lib\net40
 
 echo Packaging 
 
-%nuget% pack "ViewRanger.nuspec" -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
+%nuget% pack "ViewRanger.nuspec" -NoPackageAnalysis -verbosity detailed -o Build -p Configuration="%config%"
 
 echo Done!
