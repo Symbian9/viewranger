@@ -73,6 +73,12 @@
     <Content Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\NoLocations.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\Empty.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\NoLocations.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="RequestBuilderTests\GetLastPositionRequestTests\RequestTests\SampleResponses\Empty.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -17,6 +17,22 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests.Reques
             }
         }
 
+        public static XDocument NoLocations
+        {
+            get
+            {
+                return GetXDocument("NoLocations.xml");
+            }
+        }
+
+        public static XDocument Empty
+        {
+            get
+            {
+                return GetXDocument("Empty.xml");
+            }
+        }
+
         public static XDocument GetXDocument(string name)
         {
             return XDocument.Load(string.Concat(@"RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\", name));
