@@ -81,5 +81,16 @@ namespace Liath.ViewRanger.RequestBuilders
 
             return this;
         }
+
+
+        public IGetTrackRequest ForToday()
+        {
+            // If we need to make this more robust we could insert a TimeManager dependency
+            var today = DateTime.Now.Date;
+            this.FromDate = today; // midnight just gone
+            this.ToDate = today.AddDays(1); // midnight coming up
+
+            return this;
+        }
     }
 }

@@ -26,6 +26,11 @@ namespace Liath.ViewRanger.RequestBuilders
         IGetTrackRequest To(DateTime to);
 
         /// <summary>
+        /// Sets the date range to today
+        /// </summary>
+        IGetTrackRequest ForToday();
+
+        /// <summary>
         /// The maximum number of results to return
         /// </summary>
         IGetTrackRequest Limit(int limit);
