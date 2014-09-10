@@ -16,4 +16,4 @@ var lastLocation = client.GetLastPosition()
     .Request();	
 ```
 
-To find out more view the [wiki](https://github.com/ardliath/viewranger) or download the [NuGet Package](nuget.org/packages/ViewRanger.BuddyBeacon.API).
+To find out more view the [wiki](https://github.com/ardliath/viewranger) or download the [NuGet Package](https://www.nuget.org/packages/ViewRanger.BuddyBeacon.API).
