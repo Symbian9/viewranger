@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Liath.ViewRanger.Responses
 {
-    public class Track
+    /// <summary>
+    /// The track is made up of locations recorded via BuddyBeacon
+    /// </summary>
+    public partial class Track
     {
+        /// <summary>
+        /// The BuddyBeacon locations recorded
+        /// </summary>
         public IEnumerable<Location> Locations { get; set; }
     }
 }

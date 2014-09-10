@@ -1,4 +1,5 @@
 ﻿using Liath.ViewRanger.Responses;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Liath.ViewRanger.RequestBuilders
 {
     public class GetTrackRequest : RequestBase, IGetTrackRequest
     {
+        private static ILog s_log = LogManager.GetLogger(typeof(GetTrackRequest));
+
         public const string DateTimeFormatString = "yyyy-MM-dd HH:mm:ss";
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
@@ -37,7 +40,11 @@ namespace Liath.ViewRanger.RequestBuilders
                 new RequestParameter(ToKey, this.ToDate.ToString(DateTimeFormatString)),
                 new RequestParameter(LimitKey, this.LimitValue.ToString()));
 
-            return new Track();
+            var locationElements = xml.Descendants("LOCATION");
+            s_log.DebugFormat("{0} location elements found", locationElements.Count());
+            var locations = locationElements.Select(le => this.CreateLocationFromXml(le)).ToArray(); // force evaluation now to get any errors
+
+            return new Track { Locations = locations };
         }
 
 
