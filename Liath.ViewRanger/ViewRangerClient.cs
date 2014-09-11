@@ -57,7 +57,7 @@ namespace Liath.ViewRanger
         {
 
             s_log.Debug("Initialising ViewRangerClient from config");
-            var section = ConfigurationManager.GetSection("viewRanger") as ViewRangerConfigurationSection;
+            var section = this.LoadConfigurationSection();
             if (section != null)
             {
                 s_log.Debug("Loaded the 'viewRanger' ConfigurationSection from config");
@@ -88,6 +88,15 @@ namespace Liath.ViewRanger
                 s_log.Error("The ConfigurationSection 'viewRanger' was not found");
                 throw new ConfigurationErrorsException("The ConfigurationSection 'viewRanger' was not found");
             }
+        }
+
+        /// <summary>
+        /// Loads the config section
+        /// </summary>
+        /// <remarks>This is virtual to allow stubbing</remarks>
+        protected virtual ViewRangerConfigurationSection LoadConfigurationSection()
+        {
+            return ConfigurationManager.GetSection("viewRanger") as ViewRangerConfigurationSection;
         }
     }
 }
