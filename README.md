@@ -7,10 +7,9 @@ With only a few lines of C# you can query the API to find geographical informati
 
 
 ```C#
-var appKey = @"123456789";
 var username = "user1";
 var pin = "1234";
-var client = new ViewRangerClient(appKey);
+var client = new ViewRangerClient();
 var lastLocation = client.GetLastPosition()
     .ForUser(username, pin)
     .Request();	
