@@ -91,7 +91,9 @@ namespace Liath.ViewRanger.RequestBuilders
 
             var url = this.CreateUrl(allParameters);
 
-            s_log.DebugFormat("Attempting to download data from '{0}'", url);
+            // Strip out the username/password/key from the logs
+            var safeMessageToLog = this.RemoveSensitiveInformation(url);
+            s_log.DebugFormat("Attempting to download data from '{0}'", safeMessageToLog);
 
             var document = this.DownloadXml(url);
             s_log.Debug("XML response downloaded");
@@ -115,6 +117,27 @@ namespace Liath.ViewRanger.RequestBuilders
             //        </LOCATION>
             //    </VIEWRANGER>
             //    See more at: http://www.viewranger.com/developers/documentation/#sthash.wi7BbDza.dpuf
+        }
+
+        /// <summary>
+        /// Usernames and PINs are often included in things like URLs, this method will remove
+        /// </summary>
+        private string RemoveSensitiveInformation(string message)
+        {
+            // Strip out in order of complexity - avoids edge case where the PIN is part of the key or username
+            string strippedData = this.RemoveSensitiveInformation(message, this.Key);
+            strippedData = this.RemoveSensitiveInformation(strippedData, this.Username);
+            strippedData = this.RemoveSensitiveInformation(strippedData, this.Pin);
+
+            return strippedData;
+        }
+
+        /// <summary>
+        /// Removes the valueToRemove from the message and replaces it with asterisks
+        /// </summary>
+        private string RemoveSensitiveInformation(string message, string valueToRemove)
+        {
+            return message.Replace(valueToRemove, new string('*', valueToRemove.Length));
         }
 
         /// <summary>
