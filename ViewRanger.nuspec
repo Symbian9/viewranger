@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>ViewRanger.BuddyBeacon.API</id>
-        <version>1.1.0.0</version>
+        <version>1.1.1.0</version>
         <title>ViewRanger BuddyBeacon API Client for .NET</title>
         <authors>Adam Griffiths</authors>
         <owners>Adam Griffiths</owners>
@@ -12,7 +12,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>The ViewRanger BuddyBeacon API Client allows quick and easy access to the BuddyBeacon system.</description>
         <releaseNotes />
-        <tags>viewranger api</tags>
+        <tags>viewranger api buddybeacon</tags>
         <dependencies>
             <dependency id="log4net" version="2.0.3" />
         </dependencies>
