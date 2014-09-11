@@ -177,6 +177,8 @@ namespace Liath.ViewRanger.RequestBuilders
             var message = messageElement.Count() > 0 ? messageElement.First().Value : null;
             var code = codeElement.Count() > 0 ? codeElement.First().Value : null;
 
+            s_log.DebugFormat("Error response was found with Message '{0}' and Code '{1}', creating exception.", message, code);
+
             if(ApiKeyRejectedException.ApplicableErrorCodes.Contains(code))
             {
                 throw new ApiKeyRejectedException(code, message);
@@ -253,6 +255,7 @@ namespace Liath.ViewRanger.RequestBuilders
         /// <returns>The Request URL</returns>
         public virtual string CreateUrl(params RequestParameter[] parameters)
         {
+            s_log.DebugFormat("Building URL with BaseAddress '{0}' and {1} parameters", this.BaseAddress, parameters.Count());
             return string.Concat(this.BaseAddress, "?", string.Join("&", parameters.Select(x => string.Concat(x.Key, "=", x.Value)).ToArray()));
         }
 
@@ -264,6 +267,7 @@ namespace Liath.ViewRanger.RequestBuilders
         /// <returns>The XML downloaded</returns>
         public virtual XDocument DownloadXml(string url)
         {
+            s_log.Debug("Downloading the XML document");
             return XDocument.Load(url);
         }
 
