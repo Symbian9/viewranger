@@ -58,6 +58,7 @@
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\DatesAndLimitsTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\ForUserTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\ForTodayTests.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\ErrorResponseTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\SampleResponse.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SuccessfullyDownloadedXmlTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\UrlValidationTests.cs" />
@@ -75,6 +76,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\Empty.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\Error.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\NoLocations.xml">

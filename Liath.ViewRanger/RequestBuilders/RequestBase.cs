@@ -153,6 +153,25 @@ namespace Liath.ViewRanger.RequestBuilders
             var codeElement = errorElement.Descendants("CODE");
             var message = messageElement.Count() > 0 ? messageElement.First().Value : null;
             var code = codeElement.Count() > 0 ? codeElement.First().Value : null;
+
+            if(ApiKeyRejectedException.ApplicableErrorCodes.Contains(code))
+            {
+                throw new ApiKeyRejectedException(code, message);
+            }
+            if(MalformedRequestException.ApplicableErrorCodes.Contains(code))
+            {
+                throw new MalformedRequestException(code, message);
+            }
+            if(InvalidUserCredentialsException.ApplicableErrorCodes.Contains(code))
+            {
+                throw new InvalidUserCredentialsException(code, message);
+            }
+            if(InternalViewRangerException.ApplicableErrorCodes.Contains(code))
+            {
+                throw new InternalViewRangerException(code, message);
+            }
+
+            // The obove checks should catch all error codes however add a catch all in case new ones are introduced
             return new FailedRequestException(code, message);
 
             //Error messages and codes

@@ -33,6 +33,14 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests.Reques
             }
         }
 
+        public static XDocument Error
+        {
+            get
+            {
+                return GetXDocument("Error.xml");
+            }
+        }
+
         public static XDocument GetXDocument(string name)
         {
             return XDocument.Load(string.Concat(@"RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\", name));

@@ -42,7 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\ApiKeyRejectedException.cs" />
     <Compile Include="Exceptions\FailedRequestException.cs" />
+    <Compile Include="Exceptions\InternalViewRangerException.cs" />
+    <Compile Include="Exceptions\InvalidUserCredentialsException.cs" />
+    <Compile Include="Exceptions\MalformedRequestException.cs" />
     <Compile Include="Exceptions\UnexpectedResponseException.cs" />
     <Compile Include="Exceptions\UserNotSpecifiedException.cs" />
     <Compile Include="Exceptions\ViewRangerException.cs" />

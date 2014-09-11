@@ -29,20 +29,5 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.RequestBaseTests
 
             request.Verify(x => x.DownloadXml(urlToCall), Times.Once());
         }
-
-        [Test]
-        public void Ensure_error_messages_are_thrown_as_exceptions()
-        {
-            var xml = SampleResponse.Error;
-            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
-            request.CallBase = true;
-            request.Setup(x => x.DownloadXml(It.IsAny<string>())).Returns(xml);
-            var preparedRequest = request.Object.ForUser(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
-
-            var ex = Assert.Throws<FailedRequestException>(() => preparedRequest.Request());
-            Assert.AreEqual("ViewRanger was unable to complete the request", ex.Message);
-            Assert.AreEqual("1", ex.ViewRangerCode);
-            Assert.AreEqual("Invalid API key", ex.ViewRangerMessage);
-        }
     }
 }
