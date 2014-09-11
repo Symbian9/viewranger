@@ -1,4 +1,5 @@
 ﻿using Liath.ViewRanger;
+using log4net.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,11 @@ namespace ExampleApplication
         {
             try
             {
-                var appKey = @"123456789";
+                XmlConfigurator.Configure();
+
                 var username = "user1";
                 var pin = "1234";
-                var client = new ViewRangerClient(appKey);
+                var client = new ViewRangerClient();
                 var lastLocation = client.GetLastPosition()
                     .ForUser(username, pin)
                     .Request();
