@@ -36,15 +36,18 @@ namespace Liath.ViewRanger.RequestBuilders
 
         public Track Request()
         {
-            var xml = this.MakeRequest(new RequestParameter(FromKey, this.FromDate.ToString(DateTimeFormatString)),
-                new RequestParameter(ToKey, this.ToDate.ToString(DateTimeFormatString)),
-                new RequestParameter(LimitKey, this.LimitValue.ToString()));
+            return this.HandleExceptions(s_log, () =>
+                {
+                    var xml = this.MakeRequest(new RequestParameter(FromKey, this.FromDate.ToString(DateTimeFormatString)),
+                        new RequestParameter(ToKey, this.ToDate.ToString(DateTimeFormatString)),
+                        new RequestParameter(LimitKey, this.LimitValue.ToString()));
 
-            var locationElements = xml.Descendants("LOCATION");
-            s_log.DebugFormat("{0} location elements found", locationElements.Count());
-            var locations = locationElements.Select(le => this.CreateLocationFromXml(le)).ToArray(); // force evaluation now to get any errors
+                    var locationElements = xml.Descendants("LOCATION");
+                    s_log.DebugFormat("{0} location elements found", locationElements.Count());
+                    var locations = locationElements.Select(le => this.CreateLocationFromXml(le)).ToArray(); // force evaluation now to get any errors
 
-            return new Track { Locations = locations };
+                    return new Track { Locations = locations };
+                });
         }
 
 
@@ -55,20 +58,29 @@ namespace Liath.ViewRanger.RequestBuilders
 
         public IGetTrackRequest From(DateTime from)
         {
-            this.FromDate = from;
-            return this;
+            return this.HandleExceptions(s_log, () =>
+               {
+                   this.FromDate = from;
+                   return this;
+               });
         }
 
         public IGetTrackRequest To(DateTime to)
         {
-            this.ToDate = to;
-            return this;
+            return this.HandleExceptions(s_log, () =>
+               {
+                   this.ToDate = to;
+                   return this;
+               });
         }
 
         public IGetTrackRequest Limit(int limit)
         {
-            this.LimitValue = limit;
-            return this;
+            return this.HandleExceptions(s_log, () =>
+               {
+                   this.LimitValue = limit;
+                   return this;
+               });
         }
 
         public IGetTrackRequest ForUser(string username, string pin)
@@ -76,21 +88,27 @@ namespace Liath.ViewRanger.RequestBuilders
             if (username == null) throw new ArgumentNullException("username");
             if (pin == null) throw new ArgumentNullException("pin");
 
-            this.Username = username;
-            this.Pin = pin;
+            return this.HandleExceptions(s_log, () =>
+               {
+                   this.Username = username;
+                   this.Pin = pin;
 
-            return this;
+                   return this;
+               });
         }
 
 
         public IGetTrackRequest ForToday()
         {
-            // If we need to make this more robust we could insert a TimeManager dependency
-            var today = DateTime.Now.Date;
-            this.FromDate = today; // midnight just gone
-            this.ToDate = today.AddDays(1); // midnight coming up
+            return this.HandleExceptions(s_log, () =>
+               {
+                   // If we need to make this more robust we could insert a TimeManager dependency
+                   var today = DateTime.Now.Date;
+                   this.FromDate = today; // midnight just gone
+                   this.ToDate = today.AddDays(1); // midnight coming up
 
-            return this;
+                   return this;
+               });
         }
     }
 }

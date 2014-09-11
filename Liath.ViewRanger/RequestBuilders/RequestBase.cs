@@ -347,5 +347,28 @@ namespace Liath.ViewRanger.RequestBuilders
                 throw new UnexpectedResponseException("The LOCATION element had {0} {1} elements", matches.Count(), key);
             }
         }
+
+        /// <summary>
+        /// Runs the requested function wrapped in a Try/Catch which logs and throws appropriate exceptions
+        /// </summary>
+        /// <param name="logger">The logger errors should be logged to</param>
+        /// <param name="func">The action to attempt</param>
+        protected T HandleExceptions<T>(ILog logger, Func<T> func)
+        {
+            try
+            {
+                return func();
+            }
+            catch(ViewRangerException ex)
+            {
+                logger.Error("There was an error accessing ViewRanger", ex);
+                throw;
+            }
+            catch(Exception ex)
+            {
+                logger.Error("There was an error processing the request", ex);
+                throw new ClientException(ex);
+            }
+        }
     }
 }

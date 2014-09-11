@@ -1,5 +1,6 @@
 ﻿using Liath.ViewRanger.Exceptions;
 using Liath.ViewRanger.Responses;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace Liath.ViewRanger.RequestBuilders
     /// </summary>
     public class GetLastPositionRequest : RequestBase, IGetLastPositionRequest
     {
+        private static ILog s_log = LogManager.GetLogger(typeof(GetLastPositionRequest));
+
         /// <summary>
         /// The name of the function which we call on the ViewRanger service
         /// </summary>
@@ -43,9 +46,12 @@ namespace Liath.ViewRanger.RequestBuilders
             if (username == null) throw new ArgumentNullException("username");
             if (pin == null) throw new ArgumentNullException("pin");
 
-            this.Username = username;
-            this.Pin = pin;
-            return this;
+            return this.HandleExceptions(s_log, () =>
+               {
+                   this.Username = username;
+                   this.Pin = pin;
+                   return this;
+               });
         }
 
         /// <summary>
@@ -54,16 +60,22 @@ namespace Liath.ViewRanger.RequestBuilders
         /// <returns>The user's last location</returns>
         public Location Request()
         {
-            var xml = this.MakeRequest();
-            var locationElements = xml.Descendants("LOCATION");
-            if(locationElements.Count() == 1)
-            {
-                return this.CreateLocationFromXml(locationElements.Single());
-            }
-            else
-            {
-                throw new UnexpectedResponseException("{0} LOCATION elements were found in the response", locationElements.Count());
-            }
+            return this.HandleExceptions(s_log, () =>
+               {
+                   var xml = this.MakeRequest();
+                   var locationElements = xml.Descendants("LOCATION");
+                   if (locationElements.Count() == 1)
+                   {
+                       return this.CreateLocationFromXml(locationElements.Single());
+                   }
+                   else
+                   {
+                       var message = string.Format("{0} LOCATION elements were found in the response", locationElements.Count());
+                       s_log.Error(message);
+                       throw new UnexpectedResponseException(message);
+                   }
+               });
+
             // example response
             //<?xml version="1.0" encoding="UTF-8"?>
             //    <VIEWRANGER>

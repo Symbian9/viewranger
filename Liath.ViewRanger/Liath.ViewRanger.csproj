@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\ApiKeyRejectedException.cs" />
+    <Compile Include="Exceptions\ClientException.cs" />
     <Compile Include="Exceptions\FailedRequestException.cs" />
     <Compile Include="Exceptions\InternalViewRangerException.cs" />
     <Compile Include="Exceptions\InvalidUserCredentialsException.cs" />

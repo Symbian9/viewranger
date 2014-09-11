@@ -29,5 +29,15 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests.Reques
             request.Setup(x => x.DownloadXml(It.IsAny<string>())).Returns(xml);
             return request.Object.ForUser(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
         }
+
+        [Test]
+        public void Ensure_internal_error_throws_ClientException()
+        {
+            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
+            request.CallBase = true;
+            request.Setup(x => x.DownloadXml(It.IsAny<string>())).Throws(new NullReferenceException());
+            var readyToRequest = request.Object.ForUser(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            Assert.Throws<ClientException>(() => readyToRequest.Request());
+        }
     }
 }

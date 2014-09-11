@@ -1,5 +1,6 @@
 ﻿using Liath.ViewRanger.Exceptions;
 using Liath.ViewRanger.RequestBuilders;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,6 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.RequestBaseTests
         {
             var request = this.CreateRequest(code);
             Assert.Throws<FailedRequestException>(() => request.Request());
-        }
+        }        
     }
 }
