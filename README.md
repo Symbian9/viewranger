@@ -3,7 +3,7 @@ ViewRanger BuddyBeacon .NET client
 
 An integration library for .NET applications to access ViewRanger's BuddyBeacon API. The library allows users of the ViewRanger app to download the last seen locations of users.
 
-With only a few lines of C# you can find the last time a user's BuddyBeacon was sent.
+With only a few lines of C# you can query the API to find geographical information about your users.
 
 
 ```C#
