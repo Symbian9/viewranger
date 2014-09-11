@@ -38,7 +38,7 @@ namespace Liath.ViewRanger.RequestBuilders
         /// <summary>
         /// The ApplicationKey to use when calling the ViewRanger API
         /// </summary>
-        protected string Key { get; set; }
+        public string ApplicationKey { get; set; }
 
         /// <summary>
         /// The user's username
@@ -60,12 +60,13 @@ namespace Liath.ViewRanger.RequestBuilders
         /// <summary>
         /// Creates a new request
         /// </summary>
-        protected RequestBase(string applicationKey)
+        protected RequestBase(string applicationKey, string baseAddress)
         {
             if (applicationKey == null) throw new ArgumentNullException("applicationKey");
+            if (baseAddress == null) throw new ArgumentNullException("baseAddress");
 
-            this.BaseAddress = @"http://api.viewranger.com/public/v1/";
-            this.Key = applicationKey;
+            this.BaseAddress = baseAddress;
+            this.ApplicationKey = applicationKey;
         }
 
         /// <summary>
@@ -82,7 +83,7 @@ namespace Liath.ViewRanger.RequestBuilders
 
             var allParameters = new RequestParameter[]
             {
-                new RequestParameter(KeyKey, Key),
+                new RequestParameter(KeyKey, ApplicationKey),
                 new RequestParameter(ServiceKey, this.Service),
                 new RequestParameter(UsernameKey, this.Username),
                 new RequestParameter(PinKey, this.Pin),
@@ -125,7 +126,7 @@ namespace Liath.ViewRanger.RequestBuilders
         private string RemoveSensitiveInformation(string message)
         {
             // Strip out in order of complexity - avoids edge case where the PIN is part of the key or username
-            string strippedData = this.RemoveSensitiveInformation(message, this.Key);
+            string strippedData = this.RemoveSensitiveInformation(message, this.ApplicationKey);
             strippedData = this.RemoveSensitiveInformation(strippedData, this.Username);
             strippedData = this.RemoveSensitiveInformation(strippedData, this.Pin);
 

@@ -13,6 +13,12 @@ namespace Liath.ViewRanger.Tests.ViewRangerClientTests
         [Test]
         public void Does_not_throw_when_applicationKey_supplied()
         {
+            Assert.DoesNotThrow(() => new ViewRangerClient(Guid.NewGuid().ToString(), Guid.NewGuid().ToString()));
+        }
+
+        [Test]
+        public void Does_not_throw_when_baseUrl_is_omitted()
+        {
             Assert.DoesNotThrow(() => new ViewRangerClient(Guid.NewGuid().ToString()));
         }
 

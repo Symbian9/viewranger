@@ -18,7 +18,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests.Reques
         [Test]
         public void Ensure_track_is_populated()
         {
-            var request = new Mock<GetTrackRequest>(Guid.NewGuid().ToString());
+            var request = new Mock<GetTrackRequest>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
             request.CallBase = true;
             request.Setup(x => x.DownloadXml(It.IsAny<string>())).Returns(SampleResponse.Successful);
 
@@ -175,7 +175,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests.Reques
         {
             var xml = SampleResponse.Successful;
             xml.Descendants(nodeName).First().Value = Guid.NewGuid().ToString();
-            var request = new Mock<GetTrackRequest>(Guid.NewGuid().ToString());
+            var request = new Mock<GetTrackRequest>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
             request.CallBase = true;
             request.Setup(x => x.MakeRequest(It.IsAny<RequestParameter[]>())).Returns(xml);
             return request.Object
@@ -185,7 +185,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests.Reques
 
         private Track GetTrackFromEmptyResponse()
         {
-            var request = new Mock<GetTrackRequest>(Guid.NewGuid().ToString());
+            var request = new Mock<GetTrackRequest>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
             request.CallBase = true;
             request.Setup(x => x.MakeRequest(It.IsAny<RequestParameter[]>())).Returns(SampleResponse.Empty);
             return request.Object
@@ -197,7 +197,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests.Reques
         {
             var xml = SampleResponse.Successful;
             xml.Descendants(nodeName).First().Value = string.Empty;
-            var request = new Mock<GetTrackRequest>(Guid.NewGuid().ToString());            
+            var request = new Mock<GetTrackRequest>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());            
             request.CallBase = true;
             request.Setup(x => x.MakeRequest(It.IsAny<RequestParameter[]>())).Returns(xml);
             return request.Object

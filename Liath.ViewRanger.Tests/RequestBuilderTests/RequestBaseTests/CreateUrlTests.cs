@@ -17,11 +17,9 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.RequestBaseTests
         {
             var key = "TheKey";
             var baseUrl = "http://www.somewhere.com/";
-            var response = new Mock<GetLastPositionRequest>(key);
-            response.CallBase = true;
-            response.Setup(x => x.BaseAddress).Returns(baseUrl);
+            var response = new GetLastPositionRequest(key, baseUrl);
 
-            var url = response.Object.CreateUrl(new RequestParameter("a", "1"), new RequestParameter("b", "2"));
+            var url = response.CreateUrl(new RequestParameter("a", "1"), new RequestParameter("b", "2"));
 
             Assert.AreEqual(string.Concat(baseUrl, "?a=1&b=2"), url);
         }

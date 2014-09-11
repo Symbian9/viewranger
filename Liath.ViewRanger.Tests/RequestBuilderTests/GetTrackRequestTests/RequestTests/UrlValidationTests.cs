@@ -29,7 +29,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests.Reques
         public void Check_parameters_are_correct(string key, string expectedValue)
         {
             var url = "http://www.someUrl.com";
-            var request = new Mock<GetTrackRequest>(ApplicationKey);
+            var request = new Mock<GetTrackRequest>(ApplicationKey, url);
             request.CallBase = true;
             request.Setup(x => x.CreateUrl(It.IsAny<RequestParameter[]>())).Callback<RequestParameter[]>(parameters =>
                 {

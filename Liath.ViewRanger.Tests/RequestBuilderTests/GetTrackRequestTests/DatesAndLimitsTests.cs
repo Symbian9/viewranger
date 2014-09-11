@@ -15,7 +15,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests
         public void Ensure_FromDate_is_set()
         {
             var now = DateTime.Now;
-            var req = new GetTrackRequest(Guid.NewGuid().ToString()).From(now);
+            var req = new GetTrackRequest(Guid.NewGuid().ToString(), Guid.NewGuid().ToString()).From(now);
             Assert.AreEqual(now, ((GetTrackRequest)req).FromDate);
         }
 
@@ -23,7 +23,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests
         public void Ensure_ToDate_is_set()
         {
             var now = DateTime.Now;
-            var req = new GetTrackRequest(Guid.NewGuid().ToString()).To(now);
+            var req = new GetTrackRequest(Guid.NewGuid().ToString(), Guid.NewGuid().ToString()).To(now);
             Assert.AreEqual(now, ((GetTrackRequest)req).ToDate);
         }
 
@@ -31,7 +31,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests
         public void Ensure_LimitValue_is_set()
         {
             var limit = 10;
-            var req = new GetTrackRequest(Guid.NewGuid().ToString()).Limit(limit);
+            var req = new GetTrackRequest(Guid.NewGuid().ToString(), Guid.NewGuid().ToString()).Limit(limit);
             Assert.AreEqual(limit, ((GetTrackRequest)req).LimitValue);
         }
     }

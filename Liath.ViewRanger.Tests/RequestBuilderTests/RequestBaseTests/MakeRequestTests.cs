@@ -20,7 +20,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.RequestBaseTests
         {
             var urlToCall = Guid.NewGuid().ToString();
             var xml = SampleResponse.Successful;
-            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
+            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
             request.CallBase = true;
             request.Setup(x => x.CreateUrl(It.IsAny<RequestParameter[]>())).Returns(urlToCall);
             request.Setup(x => x.DownloadXml(urlToCall)).Returns(xml).Verifiable();

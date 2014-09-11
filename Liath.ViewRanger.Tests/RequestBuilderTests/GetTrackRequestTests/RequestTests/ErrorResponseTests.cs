@@ -24,7 +24,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
             var xml = SampleResponse.Error;
             xml.Descendants("CODE").Single().Value = code;
             xml.Descendants("MESSAGE").Single().Value = Guid.NewGuid().ToString();
-            var request = new Mock<GetTrackRequest>(Guid.NewGuid().ToString());
+            var request = new Mock<GetTrackRequest>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
             request.CallBase = true;
             request.Setup(x => x.DownloadXml(It.IsAny<string>())).Returns(xml);
             return request.Object.ForUser(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
@@ -33,7 +33,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
         [Test]
         public void Ensure_internal_error_throws_ClientException()
         {
-            var request = new Mock<GetTrackRequest>(Guid.NewGuid().ToString());
+            var request = new Mock<GetTrackRequest>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
             request.CallBase = true;
             request.Setup(x => x.DownloadXml(It.IsAny<string>())).Throws(new NullReferenceException());
             var readyToRequest = request.Object.ForUser(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());

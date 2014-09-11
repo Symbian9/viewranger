@@ -33,8 +33,8 @@ namespace Liath.ViewRanger.RequestBuilders
         /// Creates a new request based using the ApplicationKey
         /// </summary>
         /// <param name="key">The ApplicationKey used to call ViewRanger</param>
-        public GetLastPositionRequest(string key)
-            : base(key)
+        public GetLastPositionRequest(string key, string baseAddress)
+            : base(key, baseAddress)
         {
         }
 

@@ -21,8 +21,8 @@ namespace Liath.ViewRanger.RequestBuilders
         public const string ToKey = "date_until";
         public const string LimitKey = "limit";
 
-        public GetTrackRequest(string apiKey)
-            : base(apiKey)
+        public GetTrackRequest(string apiKey, string baseAddress)
+            : base(apiKey, baseAddress)
         {
             this.FromDate = DateTime.MinValue;
             this.ToDate = DateTime.MaxValue;

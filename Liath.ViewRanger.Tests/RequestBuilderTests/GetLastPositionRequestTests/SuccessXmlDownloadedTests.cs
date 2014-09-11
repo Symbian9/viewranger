@@ -24,7 +24,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
         public void Throws_when_invalid_number_of_locations(string filename)
         {
             var xml = SampleResponse.GetXDocument(filename);
-            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
+            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
             request.CallBase = true;
             request.Setup(x => x.MakeRequest()).Returns(xml);
             Assert.Throws<UnexpectedResponseException>(() => request.Object.Request());
@@ -177,7 +177,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
 
         private Location GetLocationFromSuccessfulResponse()
         {
-            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
+            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
             request.CallBase = true;
             request.Setup(x => x.MakeRequest()).Returns(SampleResponse.Successful);
             return request.Object.Request();
@@ -187,7 +187,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
         {
             var xml = SampleResponse.Successful;
             xml.Descendants(nodeName).Single().Value = Guid.NewGuid().ToString();
-            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
+            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
             request.CallBase = true;
             request.Setup(x => x.MakeRequest()).Returns(xml);
             return request.Object.Request();
@@ -195,7 +195,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
 
         private Location GetLocationFromEmptyResponse()
         {
-            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
+            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
             request.CallBase = true;
             request.Setup(x => x.MakeRequest()).Returns(SampleResponse.Empty);
             return request.Object.Request();
@@ -205,7 +205,7 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
         {
             var xml = SampleResponse.Successful;
             xml.Descendants(nodeName).Single().Value = string.Empty;
-            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString());
+            var request = new Mock<GetLastPositionRequest>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
             request.CallBase = true;
             request.Setup(x => x.MakeRequest()).Returns(xml);
             return request.Object.Request();
