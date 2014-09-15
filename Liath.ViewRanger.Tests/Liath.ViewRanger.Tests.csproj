@@ -58,8 +58,10 @@
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\SuccessXmlDownloadedTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\ConstructorTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\DatesAndLimitsTests.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\NoLimitTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\ForUserTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\ForTodayTests.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\BatchingTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\ErrorResponseTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\SampleResponse.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SuccessfullyDownloadedXmlTests.cs" />
