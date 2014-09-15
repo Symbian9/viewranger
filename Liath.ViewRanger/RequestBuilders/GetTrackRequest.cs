@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Liath.ViewRanger.RequestBuilders
 {
@@ -15,11 +16,12 @@ namespace Liath.ViewRanger.RequestBuilders
         public const string DateTimeFormatString = "yyyy-MM-dd HH:mm:ss";
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
-        public int LimitValue { get; set; }
+        public int? LimitValue { get; set; }
 
         public const string FromKey = "date_from";
         public const string ToKey = "date_until";
         public const string LimitKey = "limit";
+        public const int MaxMatchSize = 500;
 
         public GetTrackRequest(string apiKey, string baseAddress)
             : base(apiKey, baseAddress)
@@ -38,16 +40,44 @@ namespace Liath.ViewRanger.RequestBuilders
         {
             return this.HandleExceptions(s_log, () =>
                 {
-                    var xml = this.MakeRequest(new RequestParameter(FromKey, this.FromDate.ToString(DateTimeFormatString)),
-                        new RequestParameter(ToKey, this.ToDate.ToString(DateTimeFormatString)),
-                        new RequestParameter(LimitKey, this.LimitValue.ToString()));
+                    string batchSize = this.LimitValue.HasValue ? this.LimitValue.ToString() : MaxMatchSize.ToString();
+                    s_log.DebugFormat("Setting BatchSize to {0}", batchSize);
+                    var allLocations = new List<Location>();
+                    IEnumerable<Location> thisBatch;
+                    do
+                    {
+                        // Update the toDate filter to exclude any results we've already downloaded
+                        var toDateFilter = allLocations.Any()
+                            ? allLocations.Min(l => l.Date).Value.AddSeconds(-1)
+                            : this.ToDate;
+                        
+                        s_log.DebugFormat("Downloading a maximum of {0} results between {1} and {2}",
+                            batchSize,
+                            this.FromDate.ToString(DateTimeFormatString),
+                            toDateFilter.ToString(DateTimeFormatString));
 
-                    var locationElements = xml.Descendants("LOCATION");
-                    s_log.DebugFormat("{0} location elements found", locationElements.Count());
-                    var locations = locationElements.Select(le => this.CreateLocationFromXml(le)).ToArray(); // force evaluation now to get any errors
+                        // download the new xml
+                        var xml = this.MakeRequest(new RequestParameter(FromKey, this.FromDate.ToString(DateTimeFormatString)),
+                            new RequestParameter(ToKey, toDateFilter.ToString(DateTimeFormatString)),
+                            new RequestParameter(LimitKey, batchSize));
 
-                    return new Track { Locations = locations };
+                        // parse and add
+                        thisBatch = this.ParseLocationsFromXml(xml);
+                        allLocations.AddRange(thisBatch);
+                        s_log.DebugFormat("{0} new locations downloaded, {1} downloaded in total", thisBatch.Count(), allLocations.Count);
+
+                        // if we're doing a limitless query and if the result count was equal to the batch size then go again
+                    } while (!this.LimitValue.HasValue && thisBatch.Count() == MaxMatchSize);
+
+                    return new Track { Locations = allLocations };
                 });
+        }
+
+        private IEnumerable<Location> ParseLocationsFromXml(XDocument xml)
+        {
+            var locationElements = xml.Descendants("LOCATION");
+            s_log.DebugFormat("{0} location elements found", locationElements.Count());
+            return locationElements.Select(le => this.CreateLocationFromXml(le)).ToArray(); // force evaluation now to get any errors
         }
 
 
@@ -81,6 +111,15 @@ namespace Liath.ViewRanger.RequestBuilders
                    this.LimitValue = limit;
                    return this;
                });
+        }
+
+        public IGetTrackRequest NoLimit()
+        {
+            return this.HandleExceptions(s_log, () =>
+                {
+                    this.LimitValue = null; // removes the max limit of batches
+                    return this;
+                });
         }
 
         public IGetTrackRequest ForUser(string username, string pin)
