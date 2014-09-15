@@ -34,5 +34,10 @@ namespace Liath.ViewRanger.RequestBuilders
         /// The maximum number of results to return
         /// </summary>
         IGetTrackRequest Limit(int limit);
+
+        /// <summary>
+        /// Removes the Limit and allows the library to download all locations between the specified From/To dates
+        /// </summary>
+        IGetTrackRequest NoLimit();
     }
 }
