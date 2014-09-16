@@ -31,7 +31,9 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests.Reques
 
         private void AssertSuccessfulTrackIsCorrect(Track track)
         {
-            var xml = SampleResponse.Successful.Descendants("LOCATION").Select(n => new
+            var xml = SampleResponse.Successful.Descendants("LOCATION")
+                .OrderBy(n => DateTime.Parse(n.Descendants("DATE").Single().Value)) // ssort these to match the response coming back
+                .Select(n => new
             {
                 LATITUDE = decimal.Parse(n.Descendants("LATITUDE").Single().Value),
                 LONGITUDE = decimal.Parse(n.Descendants("LONGITUDE").Single().Value),
@@ -117,35 +119,35 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests.Reques
         public void Check_Latitude_is_null_when_blank()
         {
             var track = this.GetLocationFromBlankResponse("LATITUDE");
-            Assert.IsNull(track.Locations.First().Latitude);
+            Assert.IsNull(track.Locations.Last().Latitude);
         }
 
         [Test]
         public void Check_Longitude_is_null_when_blank()
         {
             var track = this.GetLocationFromBlankResponse("LONGITUDE");
-            Assert.IsNull(track.Locations.First().Longitude);
+            Assert.IsNull(track.Locations.Last().Longitude);
         }
 
         [Test]
         public void Check_Speed_is_null_when_blank()
         {
             var track = this.GetLocationFromBlankResponse("SPEED");
-            Assert.IsNull(track.Locations.First().Speed);
+            Assert.IsNull(track.Locations.Last().Speed);
         }
 
         [Test]
         public void Check_Altitude_is_null_when_blank()
         {
             var track = this.GetLocationFromBlankResponse("ALTITUDE");
-            Assert.IsNull(track.Locations.First().Altitude);
+            Assert.IsNull(track.Locations.Last().Altitude);
         }
 
         [Test]
         public void Check_Heading_is_null_when_blank()
         {
             var track = this.GetLocationFromBlankResponse("HEADING");
-            Assert.IsNull(track.Locations.First().Heading);
+            Assert.IsNull(track.Locations.Last().Heading);
         }
 
         [Test]
