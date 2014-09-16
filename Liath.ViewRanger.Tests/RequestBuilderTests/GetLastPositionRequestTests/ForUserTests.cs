@@ -1,5 +1,6 @@
 ﻿using Liath.ViewRanger.Exceptions;
 using Liath.ViewRanger.RequestBuilders;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -68,6 +69,39 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetLastPositionRequestTests
             var request = new GetLastPositionRequest(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
             var nextRequestObject = request.ForUser(Guid.NewGuid().ToString(), pin);
             Assert.AreEqual(pin, ((GetLastPositionRequest)nextRequestObject).Pin);
+        }
+
+        [Test]
+        public void Throws_when_IUser_is_null()
+        {
+            var request = new GetLastPositionRequest(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            var ex = Assert.Throws<ArgumentNullException>(() =>
+            {
+                request.ForUser(null);
+            });
+            Assert.AreEqual("user", ex.ParamName);
+        }
+
+        [Test]
+        public void Check_IUser_username_set_correctly()
+        {
+            var user = new Mock<IUser>();
+            user.Setup(x => x.BuddyBeaconUsername).Returns(Guid.NewGuid().ToString());
+            user.Setup(x => x.BuddyBeaconPin).Returns(Guid.NewGuid().ToString());
+            var request = new GetLastPositionRequest(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            var nextRequestObject = request.ForUser(user.Object);
+            Assert.AreEqual(user.Object.BuddyBeaconUsername, ((GetLastPositionRequest)nextRequestObject).Username);
+        }
+
+        [Test]
+        public void Check_IUser_pin_set_correctly()
+        {
+            var user = new Mock<IUser>();
+            user.Setup(x => x.BuddyBeaconUsername).Returns(Guid.NewGuid().ToString());
+            user.Setup(x => x.BuddyBeaconPin).Returns(Guid.NewGuid().ToString());
+            var request = new GetLastPositionRequest(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            var nextRequestObject = request.ForUser(user.Object);
+            Assert.AreEqual(user.Object.BuddyBeaconPin, ((GetLastPositionRequest)nextRequestObject).Pin);
         }
     }
 }

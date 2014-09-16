@@ -16,6 +16,11 @@ namespace Liath.ViewRanger.RequestBuilders
         IGetTrackRequest ForUser(string username, string pin);
 
         /// <summary>
+        /// Specifies the user being queried
+        /// </summary>
+        IGetTrackRequest ForUser(IUser user);
+
+        /// <summary>
         /// The earliest time to search from
         /// </summary>
         IGetTrackRequest From(DateTime from);

@@ -54,6 +54,12 @@ namespace Liath.ViewRanger.RequestBuilders
                });
         }
 
+        public IGetLastPositionRequest ForUser(IUser user)
+        {
+            if (user == null) throw new ArgumentNullException("user");
+            return this.ForUser(user.BuddyBeaconUsername, user.BuddyBeaconPin);
+        }
+
         /// <summary>
         /// Makes the request from ViewRanger
         /// </summary>

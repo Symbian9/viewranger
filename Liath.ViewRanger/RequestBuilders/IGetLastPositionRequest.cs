@@ -13,5 +13,10 @@ namespace Liath.ViewRanger.RequestBuilders
         /// Specifies the credentials for the user being queried
         /// </summary>
         IGetLastPositionRequest ForUser(string username, string pin);
+
+        /// <summary>
+        /// Specifies the user being queried
+        /// </summary>
+        IGetLastPositionRequest ForUser(IUser user);
     }
 }

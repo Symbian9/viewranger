@@ -64,6 +64,7 @@
     <Compile Include="RequestBuilders\IGetLastPositionRequest.cs" />
     <Compile Include="RequestBuilders\IGetTrackRequest.cs" />
     <Compile Include="RequestBuilders\IRequest.cs" />
+    <Compile Include="IUser.cs" />
     <Compile Include="RequestBuilders\RequestBase.cs" />
     <Compile Include="RequestBuilders\RequestParameter.cs" />
     <Compile Include="Responses\Location.cs" />

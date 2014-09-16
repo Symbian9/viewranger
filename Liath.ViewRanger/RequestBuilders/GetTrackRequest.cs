@@ -237,6 +237,12 @@ namespace Liath.ViewRanger.RequestBuilders
                });
         }
 
+        public IGetTrackRequest ForUser(IUser user)
+        {
+            if (user == null) throw new ArgumentNullException("user");
+            return this.ForUser(user.BuddyBeaconUsername, user.BuddyBeaconPin);
+        }
+
 
         public IGetTrackRequest ForToday()
         {
