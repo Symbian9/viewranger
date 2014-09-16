@@ -65,6 +65,7 @@
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\BatchingTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\ErrorResponseTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\SampleResponse.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\TimingTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SuccessfullyDownloadedXmlTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\UrlValidationTests.cs" />
     <Compile Include="RequestBuilderTests\RequestBaseTests\CreateUrlTests.cs" />

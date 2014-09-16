@@ -15,5 +15,20 @@ namespace Liath.ViewRanger.Responses
         /// The BuddyBeacon locations recorded
         /// </summary>
         public IEnumerable<Location> Locations { get; set; }
+
+        /// <summary>
+        /// The time of the earliest waypoint recorded
+        /// </summary>
+        public DateTime? StartTime { get; set; }
+
+        /// <summary>
+        /// The time of the last waypoint recorded
+        /// </summary>
+        public DateTime? EndTime { get; set; }
+
+        /// <summary>
+        /// The time between the first and last recorded waypoints
+        /// </summary>
+        public TimeSpan? Duration { get; set; }
     }
 }

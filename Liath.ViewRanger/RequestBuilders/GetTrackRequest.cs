@@ -69,11 +69,50 @@ namespace Liath.ViewRanger.RequestBuilders
                         // if we're doing a limitless query and if the result count was equal to the batch size then go again
                     } while (!this.LimitValue.HasValue && thisBatch.Count() == MaxMatchSize);
 
+                    var sortedLocations = allLocations.OrderBy(l => l.Date);
+                    DateTime? start;
+                    DateTime? end;
+                    TimeSpan? duration;
+                    this.CalculateTrackDateProperties(sortedLocations, out start, out end, out duration);
                     return new Track
                     { 
-                        Locations = allLocations.OrderBy(l => l.Date) 
+                        Locations =  sortedLocations,
+                        StartTime = start,
+                        EndTime = end,
+                        Duration = duration
                     };
                 });
+        }
+
+        /// <summary>
+        /// Calculates the various time related properties of a Track
+        /// </summary>
+        private void CalculateTrackDateProperties(IOrderedEnumerable<Location> locations, out DateTime? start, out DateTime? end, out TimeSpan? duration)
+        {            
+            var locationsWithDates = locations.Where(x => x.Date != null);
+            if(locations != null && locations.Any() && locationsWithDates.Any())
+            {
+                s_log.DebugFormat("Calculating time properties of track with {0} locations", locations.Count());                
+                start = locationsWithDates.Min(x => x.Date);
+                end = locationsWithDates.Max(x => x.Date);
+
+                if (start.HasValue && end.HasValue)
+                {
+                    duration = end.Value.Subtract(start.Value);
+                }
+                else
+                {
+                    s_log.Debug("Either the Start End Time of track was not found, the duration will be null");
+                    duration = null;
+                }
+            }
+            else
+            {
+                s_log.Debug("No locations were found. StartTime, EndTime and Duration will be null");
+                start = null;
+                end = null;
+                duration = null;
+            }
         }
 
         private IEnumerable<Location> ParseLocationsFromXml(XDocument xml)
