@@ -27,7 +27,7 @@ namespace Liath.ViewRanger.Responses
         public DateTime? Date { get; set; }
 
         /// <summary>
-        /// The altitude the user was at when recording the BuddyBeacon (Metres above sea level)
+        /// The altitude the user was at when recording the BuddyBeacon (metres above sea level)
         /// </summary>
         public decimal? Altitude { get; set; }
 
