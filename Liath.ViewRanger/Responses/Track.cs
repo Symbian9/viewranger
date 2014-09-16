@@ -30,5 +30,15 @@ namespace Liath.ViewRanger.Responses
         /// The time between the first and last recorded waypoints
         /// </summary>
         public TimeSpan? Duration { get; set; }
+
+        /// <summary>
+        /// The total distance of the track (in metres)
+        /// </summary>
+        public decimal? TotalDistance { get; set; }
+
+        /// <summary>
+        /// The total height gain of the track in metres
+        /// </summary>
+        public decimal? TotalHeightGain { get; set; }
     }
 }

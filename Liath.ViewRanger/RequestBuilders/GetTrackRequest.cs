@@ -2,6 +2,7 @@
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,15 +74,72 @@ namespace Liath.ViewRanger.RequestBuilders
                     DateTime? start;
                     DateTime? end;
                     TimeSpan? duration;
+                    decimal? height;
+                    decimal? distance;
                     this.CalculateTrackDateProperties(sortedLocations, out start, out end, out duration);
+                    this.CalculateGeographicProperties(sortedLocations, out distance, out height);
                     return new Track
                     { 
                         Locations =  sortedLocations,
                         StartTime = start,
                         EndTime = end,
-                        Duration = duration
+                        Duration = duration,
+                        TotalDistance = distance,
+                        TotalHeightGain = height
                     };
                 });
+        }
+
+        /// <summary>
+        /// Calcualtes the distance and height gain of the track
+        /// </summary>
+        private void CalculateGeographicProperties(IOrderedEnumerable<Location> locations, out decimal? distance, out decimal? height)
+        {
+            // There may be some room for improvement here - rather than iterating two sublists perhaps it's better to iterate everything once?
+
+            s_log.DebugFormat("Calculating geographic properties of track with {0} locations", locations.Count());
+            var valuesWithCoords = locations.Where(l => l.Latitude.HasValue && l.Longitude.HasValue);
+            s_log.DebugFormat("{0} locations have Lat/Lng information", valuesWithCoords.Count());
+            if(valuesWithCoords.Any())
+            {
+                var edges = new List<double>();
+                for(int i = 1; i < valuesWithCoords.Count(); i++)
+                {
+                    var startNode = valuesWithCoords.ElementAt(i - 1);
+                    var endNode = valuesWithCoords.ElementAt(i);
+                    edges.Add(new GeoCoordinate((double)startNode.Latitude.Value, (double)startNode.Longitude.Value)
+                        .GetDistanceTo(new GeoCoordinate((double)endNode.Latitude.Value, (double)endNode.Longitude.Value)));
+                }
+
+                distance = (decimal)edges.Sum();
+                s_log.DebugFormat("Total distance of {0} calculated", distance);
+            }
+            else
+            {
+                s_log.Debug("No locations have coordinates, TotalDistance will be null");
+                distance = null;
+            }
+
+            var valuesWithHeights = locations.Where(l => l.Altitude.HasValue);
+            height = 0;
+            if(valuesWithHeights.Any())
+            {
+                for(int i = 1; i < valuesWithHeights.Count(); i++)
+                {
+                    var previousLocation = valuesWithHeights.ElementAt(i - 1);
+                    var thisLocation = valuesWithHeights.ElementAt(i);
+                    var difference = previousLocation.Altitude.Value - thisLocation.Altitude.Value;
+                    if(difference > 0) // this is a height gain - only measure if it's greater than zero
+                    {
+                        height += difference;
+                    }
+                }
+            }
+            else
+            {
+                s_log.DebugFormat("There were no location with heights");
+                height = null;
+            }            
         }
 
         /// <summary>
@@ -90,9 +148,10 @@ namespace Liath.ViewRanger.RequestBuilders
         private void CalculateTrackDateProperties(IOrderedEnumerable<Location> locations, out DateTime? start, out DateTime? end, out TimeSpan? duration)
         {            
             var locationsWithDates = locations.Where(x => x.Date != null);
+            s_log.DebugFormat("Calculating time properties of track with {0} locations {1} of those have Date data", locations.Count(), locationsWithDates.Count());
+
             if(locations != null && locations.Any() && locationsWithDates.Any())
             {
-                s_log.DebugFormat("Calculating time properties of track with {0} locations", locations.Count());                
                 start = locationsWithDates.Min(x => x.Date);
                 end = locationsWithDates.Max(x => x.Date);
 

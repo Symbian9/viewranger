@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Device" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -64,6 +65,7 @@
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\ForTodayTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\BatchingTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\ErrorResponseTests.cs" />
+    <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\GeographyTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SampleResponses\SampleResponse.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\TimingTests.cs" />
     <Compile Include="RequestBuilderTests\GetTrackRequestTests\RequestTests\SuccessfullyDownloadedXmlTests.cs" />
