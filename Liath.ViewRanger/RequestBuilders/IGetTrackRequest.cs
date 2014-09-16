@@ -31,6 +31,11 @@ namespace Liath.ViewRanger.RequestBuilders
         IGetTrackRequest ForToday();
 
         /// <summary>
+        /// Sets the From/To dates to the midnights either side of the date specified
+        /// </summary>
+        IGetTrackRequest ForDay(DateTime date);
+
+        /// <summary>
         /// The maximum number of results to return
         /// </summary>
         IGetTrackRequest Limit(int limit);

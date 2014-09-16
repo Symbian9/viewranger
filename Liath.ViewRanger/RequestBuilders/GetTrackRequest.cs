@@ -149,5 +149,17 @@ namespace Liath.ViewRanger.RequestBuilders
                    return this;
                });
         }
+
+
+        public IGetTrackRequest ForDay(DateTime date)
+        {
+            return this.HandleExceptions(s_log, () =>
+                {
+                    this.FromDate = date.Date;
+                    this.ToDate = this.FromDate.AddDays(1);
+
+                    return this;
+                });
+        }
     }
 }
