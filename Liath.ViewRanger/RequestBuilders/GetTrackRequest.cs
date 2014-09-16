@@ -69,7 +69,10 @@ namespace Liath.ViewRanger.RequestBuilders
                         // if we're doing a limitless query and if the result count was equal to the batch size then go again
                     } while (!this.LimitValue.HasValue && thisBatch.Count() == MaxMatchSize);
 
-                    return new Track { Locations = allLocations };
+                    return new Track
+                    { 
+                        Locations = allLocations.OrderBy(l => l.Date) 
+                    };
                 });
         }
 

@@ -115,6 +115,39 @@ namespace Liath.ViewRanger.Tests.RequestBuilderTests.GetTrackRequestTests.Reques
             Assert.AreEqual(2, requestCount); // this is just a check to ensure that the AssertMethods were called properly
         }
 
+        [Test]
+        public void Ensure_locations_are_returned_chronologically()
+        {
+            var earliest = new DateTime(2014, 5, 12, 14, 6, 9);
+            var locations = this.CreateLocations(1250, earliest);
+            int currentRequest = 0;
+            var results = new IEnumerable<Location>[]
+            {
+                locations.Skip(750), // most recent are returned first so skip the first 750 and take the newest 500
+                locations.Skip(250).Take(500), // then the next 500 (skipping 250)
+                locations.Take(250), // and the final (earliest) 250
+            };
+
+            var request = new Mock<GetTrackRequest>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            request.CallBase = true;
+            request.Setup(r => r.MakeRequest(It.IsAny<RequestParameter[]>()))
+                .Returns(() =>
+                {
+                    var resultsToReturn = results[currentRequest];
+                    currentRequest++;
+                    var xml = this.CreateXmlForLocations(resultsToReturn);
+                    return xml;
+                });
+
+            var track = request.Object.NoLimit().Request();
+
+            Assert.AreEqual(earliest, track.Locations.ElementAt(0).Date);
+            for(int i = 0; i < track.Locations.Count(); i++)
+            {
+                Assert.AreEqual(earliest.AddMinutes(i), track.Locations.ElementAt(i).Date);
+            }
+        }
+
         private XDocument CreateXmlForLocations(IEnumerable<Location> locations)
         {
             StringBuilder sb = new StringBuilder();
