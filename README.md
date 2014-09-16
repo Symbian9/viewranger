@@ -22,4 +22,4 @@ Console.WriteLine("You've walked {0} miles today",
     client.GetTrack().ForUser(username, pin).ForToday().Request().TotalDistance / 1609);
 ```
 
-To find out more view the [wiki](https://github.com/ardliath/viewranger/wiki) or download the [NuGet Package](https://www.nuget.org/packages/ViewRanger.BuddyBeacon.API).
+The ViewRanger BuddyBeacon API Client is quick and easy to use. To find out more view the [wiki](https://github.com/ardliath/viewranger/wiki) or download the [NuGet Package](https://www.nuget.org/packages/ViewRanger.BuddyBeacon.API).
