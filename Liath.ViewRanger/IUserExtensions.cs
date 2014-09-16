@@ -14,7 +14,7 @@ namespace Liath.ViewRanger
         /// <summary>
         /// Returns a bool indicating whether the specified user has their BuddyBeacon username and password populated
         /// </summary>
-        public static bool HasCredentials(this IUser user)
+        public static bool HasBuddyBeaconCredentials(this IUser user)
         {
             return !string.IsNullOrWhiteSpace(user.BuddyBeaconUsername)
                 && !string.IsNullOrWhiteSpace(user.BuddyBeaconPin);

@@ -13,37 +13,37 @@ namespace Liath.ViewRanger.Tests
         [Test]
         public void Ensure_false_when_username_null()
         {
-            Assert.IsFalse(new UserAccount(null, Guid.NewGuid().ToString()).HasCredentials());
+            Assert.IsFalse(new UserAccount(null, Guid.NewGuid().ToString()).HasBuddyBeaconCredentials());
         }
 
         [Test]
         public void Ensure_false_when_pin_null()
         {
-            Assert.IsFalse(new UserAccount(Guid.NewGuid().ToString(), null).HasCredentials());
+            Assert.IsFalse(new UserAccount(Guid.NewGuid().ToString(), null).HasBuddyBeaconCredentials());
         }
 
         [Test]
         public void Ensure_false_when_username_white()
         {
-            Assert.IsFalse(new UserAccount("             ", Guid.NewGuid().ToString()).HasCredentials());
+            Assert.IsFalse(new UserAccount("             ", Guid.NewGuid().ToString()).HasBuddyBeaconCredentials());
         }
 
         [Test]
         public void Ensure_false_when_pin_white()
         {
-            Assert.IsFalse(new UserAccount(Guid.NewGuid().ToString(), "    ").HasCredentials());
+            Assert.IsFalse(new UserAccount(Guid.NewGuid().ToString(), "    ").HasBuddyBeaconCredentials());
         }
 
         [Test]
         public void Ensure_false_when_both_null()
         {
-            Assert.IsFalse(new UserAccount(null, null).HasCredentials());
+            Assert.IsFalse(new UserAccount(null, null).HasBuddyBeaconCredentials());
         }
 
         [Test]
         public void Ensure_false_when_both_populated()
         {
-            Assert.IsTrue(new UserAccount(Guid.NewGuid().ToString(), Guid.NewGuid().ToString()).HasCredentials());
+            Assert.IsTrue(new UserAccount(Guid.NewGuid().ToString(), Guid.NewGuid().ToString()).HasBuddyBeaconCredentials());
         }
 
 
