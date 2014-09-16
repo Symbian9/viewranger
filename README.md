@@ -19,7 +19,7 @@ Or perhaps you want to find out how far your user had walked on a particular day
 
 ```C#
 Console.WriteLine("You've walked {0} miles today",
-    client.GetTrack().ForUser(username, pin).ForToday().Request().TotalDistance / 1609); // metres in a mile
+    client.GetTrack().ForUser(username, pin).ForToday().Request().TotalDistance / 1609);
 ```
 
 To find out more view the [wiki](https://github.com/ardliath/viewranger/wiki) or download the [NuGet Package](https://www.nuget.org/packages/ViewRanger.BuddyBeacon.API).
