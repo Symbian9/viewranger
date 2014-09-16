@@ -1,4 +1,4 @@
-ViewRanger BuddyBeacon .NET client
+ViewRanger BuddyBeacon .NET Client
 ==========
 
 An integration library for .NET applications to access ViewRanger's BuddyBeacon API. The library allows users of the ViewRanger app to download the last seen locations of users.
