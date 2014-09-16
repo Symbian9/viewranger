@@ -50,6 +50,7 @@
     <Compile Include="..\Liath.ViewRanger\Properties\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="IUserExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\ConstructorTests.cs" />
     <Compile Include="RequestBuilderTests\GetLastPositionRequestTests\ForUserTests.cs" />
